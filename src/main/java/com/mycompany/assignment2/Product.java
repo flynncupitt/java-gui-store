@@ -1,4 +1,5 @@
-package com.mycompany.assignment1.Product;
+package com.mycompany.assignment2;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

@@ -31,7 +31,7 @@ public class HomePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Switch to BrowsePanel when button is clicked
-                mainFrame.showBrowsePanel();
+                mainFrame.showPanel("Browse");
             }
         });
         add(browsePhonesButton);

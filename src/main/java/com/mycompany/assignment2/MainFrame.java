@@ -28,7 +28,8 @@ public class MainFrame extends JFrame {
 
         // Create the panels for each section
         JPanel homePanel = new HomePanel(this);
-//        JPanel browsePanel = new BrowsePanel();
+        ProductInfoPanel productInfoPanel = new ProductInfoPanel(this);
+        JPanel browsePanel = new BrowsePanel(this, productInfoPanel);
 //        PhonePanel phonePanel = new PhonePanel();
 //        LaptopPanel laptopPanel = new LaptopPanel();
 //        CartPanel cartPanel = new CartPanel();
@@ -36,7 +37,8 @@ public class MainFrame extends JFrame {
 
 //         Add panels to the CardLayout
         mainPanel.add(homePanel, "Home");
-//         mainPanel.add(browsePanel, "Browse");
+         mainPanel.add(browsePanel, "Browse");
+         mainPanel.add(productInfoPanel, "ProductInfo");
 //        mainPanel.add(phonePanel, "Phones");
 //        mainPanel.add(laptopPanel, "Laptops");
 //        mainPanel.add(cartPanel, "Cart");
@@ -48,9 +50,10 @@ public class MainFrame extends JFrame {
         cardLayout.show(mainPanel, "Home");
     }
     
-    public void showBrowsePanel() {
-        cardLayout.show(mainPanel, "Browse");
+    public void showPanel(String panelName) {
+        cardLayout.show(mainPanel, panelName);
     }
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MainFrame frame = new MainFrame();

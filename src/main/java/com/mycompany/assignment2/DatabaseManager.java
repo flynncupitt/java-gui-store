@@ -76,20 +76,17 @@ public final class DatabaseManager {
         ArrayList<PhoneProduct> phones = new ArrayList();
         try {
             Statement statement = conn.createStatement();
-            
-            String query = "SELECT * FROM products";
+
+            String query = "SELECT * FROM products WHERE id BETWEEN 100 AND 199";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                phones.add(new PhoneProduct(resultSet.getInt("id"), resultSet.getString("name")));
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                BigDecimal price = resultSet.getBigDecimal("price");
+                phones.add(new PhoneProduct(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getString("colour")));
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return phones;
     }
     
 public static DatabaseManager getInstance() {
