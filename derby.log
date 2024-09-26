@@ -1,0 +1,15 @@
+----------------------------------------------------------------
+Thu Sep 26 17:03:02 NZST 2024:
+Booting Derby version The Apache Software----------------------------------------------------------------
+Thu Sep 26 17:22:50 NZST 2024: Shutting down Derby engine
+----------------------------------------------------------------
+on\Assignment2\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@30946e09 
+Loaded from file:/C:/Users/flynn/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.23+7-LTS-222
+user.dir=C:\Users\flynn\OneDrive - AUT University\Program Design and Construction\Assignment2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -1,0 +1,60 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ */
+
+package com.mycompany.assignment2;
+
+import java.awt.CardLayout;
+import javax.swing.*;
+
+/**
+ *
+ * @author flynn
+ */
+public class MainFrame extends JFrame {
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+
+    public MainFrame() {
+        setTitle("Shopping System");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Create CardLayout to switch between different screens
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        // Create the panels for each section
+        JPanel homePanel = new HomePanel(this);
+//        JPanel browsePanel = new BrowsePanel();
+//        PhonePanel phonePanel = new PhonePanel();
+//        LaptopPanel laptopPanel = new LaptopPanel();
+//        CartPanel cartPanel = new CartPanel();
+//        CheckoutPanel checkoutPanel = new CheckoutPanel();
+
+//         Add panels to the CardLayout
+        mainPanel.add(homePanel, "Home");
+//         mainPanel.add(browsePanel, "Browse");
+//        mainPanel.add(phonePanel, "Phones");
+//        mainPanel.add(laptopPanel, "Laptops");
+//        mainPanel.add(cartPanel, "Cart");
+//        mainPanel.add(checkoutPanel, "Checkout");
+
+        add(mainPanel);
+
+        // Show the home panel first
+        cardLayout.show(mainPanel, "Home");
+    }
+    
+    public void showBrowsePanel() {
+        cardLayout.show(mainPanel, "Browse");
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MainFrame frame = new MainFrame();
+            frame.setVisible(true);
+        });
+    }
+}
