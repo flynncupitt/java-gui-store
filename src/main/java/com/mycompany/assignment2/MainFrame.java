@@ -15,6 +15,8 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private DatabaseManager dbManager = DatabaseManager.getInstance();
+    private BrowsePanel browsePanel;
 
     public MainFrame() {
         setTitle("Shopping System");
@@ -29,7 +31,7 @@ public class MainFrame extends JFrame {
         // Create the panels for each section
         JPanel homePanel = new HomePanel(this);
         ProductInfoPanel productInfoPanel = new ProductInfoPanel(this);
-        JPanel browsePanel = new BrowsePanel(this, productInfoPanel);
+        browsePanel = new BrowsePanel(this, productInfoPanel);
 //        PhonePanel phonePanel = new PhonePanel();
 //        LaptopPanel laptopPanel = new LaptopPanel();
 //        CartPanel cartPanel = new CartPanel();
@@ -52,6 +54,16 @@ public class MainFrame extends JFrame {
     
     public void showPanel(String panelName) {
         cardLayout.show(mainPanel, panelName);
+    }
+    
+    public void showBrowsePanel(String productType) {
+        if(productType.equals("phone")) {
+            browsePanel.setProducts(dbManager.getPhoneProducts());
+            showPanel("Browse");
+        } else if(productType.equals("laptop")) {
+            browsePanel.setProducts(dbManager.getLaptopProducts());
+            showPanel("Browse");
+        }
     }
     
     public static void main(String[] args) {

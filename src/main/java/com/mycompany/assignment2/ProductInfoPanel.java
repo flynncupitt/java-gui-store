@@ -58,7 +58,7 @@ public class ProductInfoPanel extends JPanel {
         } else if(productType.equals("laptop")) {
             lp = (LaptopProduct) p;
         }
-        nameLabel.setText(productType.equals("phone") ? p.getName() + ", " + pp.getColour() : p.getName() + ", " + lp.getScreenSize());
+        nameLabel.setText(productType.equals("phone") ? p.getName() + ", " + pp.getColour() : p.getName() + ", " + lp.getScreenSize() + " inch");
         priceLabel.setText("$" + String.valueOf(p.getPrice()));
     }
 }

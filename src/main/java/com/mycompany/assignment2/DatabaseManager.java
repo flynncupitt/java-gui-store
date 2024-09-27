@@ -72,8 +72,8 @@ public final class DatabaseManager {
 //    public void closeConnection() {
 //        this.closeConnections();
 //    }
-    public ArrayList<PhoneProduct> getPhoneProducts() {
-        ArrayList<PhoneProduct> phones = new ArrayList();
+    public ArrayList<Product> getPhoneProducts() {
+        ArrayList<Product> phones = new ArrayList();
         try {
             Statement statement = conn.createStatement();
 
@@ -87,6 +87,23 @@ public final class DatabaseManager {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return phones;
+    }
+    
+    public ArrayList<Product> getLaptopProducts() {
+        ArrayList<Product> laptops = new ArrayList();
+        try {
+            Statement statement = conn.createStatement();
+
+            String query = "SELECT * FROM products WHERE id BETWEEN 200 AND 299";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                laptops.add(new LaptopProduct(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getDouble("screensize")));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return laptops;
     }
     
 public static DatabaseManager getInstance() {

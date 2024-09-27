@@ -18,16 +18,39 @@ import javax.swing.JPanel;
  * @author flynn
  */
 public class BrowsePanel extends JPanel {
-        private MainFrame mainFrame;
-        private ProductInfoPanel pip;
-        private DatabaseManager dbManager = DatabaseManager.getInstance();
 
-        public BrowsePanel(MainFrame mainFrame, ProductInfoPanel pip) {
-            this.mainFrame = mainFrame;
-            this.pip = pip;
+    private MainFrame mainFrame;
+    private ProductInfoPanel pip;
+    private ArrayList<Product> products;
+
+    public BrowsePanel(MainFrame mainFrame, ProductInfoPanel pip) {
+        this.mainFrame = mainFrame;
+        this.products = products;
+        this.pip = pip;
+        this.products = new ArrayList();
         setLayout(new GridLayout(0, 1));
 
-        listPhoneProducts();
+    }
+
+    private void listProducts() {
+
+        for (Product product : products) {
+            JButton productButton = new JButton(product.getName());
+            productButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pip.setProductInfo(product);
+                    mainFrame.showPanel("ProductInfo");
+                }
+            });
+            add(productButton);
+        }
+    }
+
+    public void setProducts(ArrayList<Product> prods) {
+        removeAll();
+        this.products = prods;
+        listProducts();
         JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -36,21 +59,8 @@ public class BrowsePanel extends JPanel {
             }
         });
         add(backButton);
+        revalidate();
+        repaint();
     }
-        private void listPhoneProducts() {
-            ArrayList<PhoneProduct> phones = dbManager.getPhoneProducts();
-            
-            for(PhoneProduct phone : phones) {
-                JButton productButton = new JButton(phone.getName());
-                productButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pip.setProductInfo(phone);
-                mainFrame.showPanel("ProductInfo");
-            }
-        });
-                add(productButton);
-            }
-    }
-    
+
 }
