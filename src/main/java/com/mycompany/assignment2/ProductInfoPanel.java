@@ -17,7 +17,9 @@ import javax.swing.JPanel;
  */
 public class ProductInfoPanel extends JPanel {
     private MainFrame mainFrame;
+    private DatabaseManager dbManager = DatabaseManager.getInstance();
     private String productType;
+    private int productId;
     
     private JLabel nameLabel;
      private JLabel priceLabel;
@@ -34,7 +36,7 @@ public class ProductInfoPanel extends JPanel {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Will add to cart here");
+                dbManager.addToCart(productId);
             }
         });
         add(cartButton);
@@ -50,6 +52,7 @@ public class ProductInfoPanel extends JPanel {
     }
     
     public void setProductInfo(Product p) {
+        productId = p.getSku();
         productType = p.getSku() < 200 ? "phone" : "laptop";
         PhoneProduct pp = null;
         LaptopProduct lp = null;

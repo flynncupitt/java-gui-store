@@ -41,6 +41,13 @@ public class HomePanel extends JPanel {
                  mainFrame.showBrowsePanel("laptop");
             }
         });
+        viewCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch to BrowsePanel when button is clicked
+                 mainFrame.showPanel("Cart");
+            }
+        });
         add(browsePhonesButton);
         add(browseLaptopsButton);
         add(viewCartButton);

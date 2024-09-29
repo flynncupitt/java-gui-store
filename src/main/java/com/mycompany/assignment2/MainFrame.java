@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
         browsePanel = new BrowsePanel(this, productInfoPanel);
 //        PhonePanel phonePanel = new PhonePanel();
 //        LaptopPanel laptopPanel = new LaptopPanel();
-//        CartPanel cartPanel = new CartPanel();
+        CartPanel cartPanel = new CartPanel();
 //        CheckoutPanel checkoutPanel = new CheckoutPanel();
 
 //         Add panels to the CardLayout
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
          mainPanel.add(productInfoPanel, "ProductInfo");
 //        mainPanel.add(phonePanel, "Phones");
 //        mainPanel.add(laptopPanel, "Laptops");
-//        mainPanel.add(cartPanel, "Cart");
+        mainPanel.add(cartPanel, "Cart");
 //        mainPanel.add(checkoutPanel, "Checkout");
 
         add(mainPanel);

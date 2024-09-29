@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +23,7 @@ public class BrowsePanel extends JPanel {
     private MainFrame mainFrame;
     private ProductInfoPanel pip;
     private ArrayList<Product> products;
+    JLabel title = new JLabel("Browsing");
 
     public BrowsePanel(MainFrame mainFrame, ProductInfoPanel pip) {
         this.mainFrame = mainFrame;
@@ -29,7 +31,6 @@ public class BrowsePanel extends JPanel {
         this.pip = pip;
         this.products = new ArrayList();
         setLayout(new GridLayout(0, 1));
-
     }
 
     private void listProducts() {
@@ -49,6 +50,7 @@ public class BrowsePanel extends JPanel {
 
     public void setProducts(ArrayList<Product> prods) {
         removeAll();
+        add(title);
         this.products = prods;
         listProducts();
         JButton backButton = new JButton("Back");
