@@ -31,8 +31,8 @@ public final class DatabaseManager {
         establishConnection();
     }
     
-    public HashMap<String, Integer> getCart() {
-        HashMap<String, Integer> cart = new HashMap();
+    public HashMap<Integer, Integer> getCart() {
+        HashMap<Integer, Integer> cart = new HashMap();
         PreparedStatement statement;
         ResultSet cartItems;
         
@@ -43,9 +43,8 @@ public final class DatabaseManager {
             cartItems = statement.executeQuery();
 
             while (cartItems.next()) {
-                String productName = getProductNameFromId(cartItems.getInt("product_id"));
                 int productQuantity = cartItems.getInt("quantity");
-                cart.put(productName, productQuantity);
+                cart.put(cartItems.getInt("product_id"), productQuantity);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,29 +53,34 @@ public final class DatabaseManager {
         return cart;
     }
     
-    private String getProductNameFromId(int product) {
+    public Product getProductFromId(int productId) {
         PreparedStatement statement;
         ResultSet nameSet;
+        
         try {
-            String sql = "SELECT name FROM PRODUCTS WHERE id = ?";
+            String sql = "SELECT * FROM PRODUCTS WHERE id = ?";
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, product);
+            statement.setInt(1, productId);
             nameSet = statement.executeQuery();
-            if(nameSet.next()) {
-                return nameSet.getString("name");
+            if (nameSet.next()) {
+                if (productId < 200) {
+                    return new PhoneProduct(productId, nameSet.getString("name"), nameSet.getDouble("price"), nameSet.getString("colour"));
+                } else {
+                    return new LaptopProduct(productId, nameSet.getString("name"), nameSet.getDouble("price"), nameSet.getDouble("screensize"));
+                }
             }
             
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions (e.g., log them)
         }
-        return "error";
+        return null;
     }
     
     public void addToCart(int product_id) {
         try {
             PreparedStatement statement;
-            int currentQuantity = countCartQuantity(globalActiveCustomer, product_id);
+            int currentQuantity = countCartQuantity(product_id);
             if( currentQuantity > 0) {
                 String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
                 statement = conn.prepareStatement(updateSql);
@@ -101,7 +105,33 @@ public final class DatabaseManager {
         }
     }
     
-    private int countCartQuantity(int customer_id, int product_id) {
+     public void removeFromCart(int product_id) {
+        PreparedStatement statement;
+        try {
+            int ccq = countCartQuantity(product_id);
+            if( ccq > 1) {
+                String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
+                statement = conn.prepareStatement(updateSql);
+                statement.setInt(1,ccq-1);
+                statement.setInt(2, globalActiveCustomer);
+                statement.setInt(3, product_id);
+                statement.executeUpdate();
+            } else if(ccq == 1) {
+                String sql = "DELETE FROM cart_items WHERE product_id = ? AND customer_id = ? ";
+                statement = conn.prepareStatement(sql);
+                statement.setInt(1, product_id);
+                statement.setInt(2, globalActiveCustomer);
+                statement.executeUpdate();
+            } else {
+                System.out.println("ERROR - TRIED TO DELETE NON-EXISTENT ITEM IN CART");
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private int countCartQuantity(int product_id) {
         PreparedStatement statement;
         ResultSet resultSet = null;
         int quantity = 0;
@@ -109,7 +139,7 @@ public final class DatabaseManager {
 
             String query = "SELECT quantity FROM cart_items WHERE customer_id = ? AND product_id = ?";
             statement = conn.prepareStatement(query);
-            statement.setInt(1, customer_id);
+            statement.setInt(1, globalActiveCustomer);
             statement.setInt(2, product_id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
