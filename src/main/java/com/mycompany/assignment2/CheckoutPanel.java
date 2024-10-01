@@ -16,20 +16,18 @@ import javax.swing.JPanel;
  *
  * @author flynn
  */
-public class CartPanel extends JPanel {
+public class CheckoutPanel extends JPanel {
     HashMap<Integer,Integer> map = new HashMap();
     private DatabaseManager dbManager = DatabaseManager.getInstance();
     private MainFrame mainFrame;
     private Double cartTotal = 0.0;
     
-    public CartPanel(MainFrame mainFrame) {
+    public CheckoutPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        
-//        JLabel title = new JLabel("Cart");
-//        add(title);
-        refreshCartPanel();
+        refreshCheckout();
     }
-    public void refreshCartPanel() {
+    
+    public void refreshCheckout() {
         removeAll();
         cartTotal = 0.0;
         map = dbManager.getCart();
@@ -47,7 +45,7 @@ public class CartPanel extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         dbManager.removeFromCart(productId);
-                        refreshCartPanel();
+                        refreshCheckout();
                     }
                 });
                 add(name);
@@ -56,9 +54,19 @@ public class CartPanel extends JPanel {
             }
             JLabel cartTotalLabel = new JLabel("Cart total: $" + String.valueOf(cartTotal));
             add(cartTotalLabel);
+            JButton checkoutButton = new JButton("Pay & Exit");
+            checkoutButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+//                    mainFrame.showPanel("Home");
+                    dbManager.savePurchases();
+                    dbManager.clearCart();
+                }
+            });
+            add(checkoutButton);
         } else {
             setLayout(new GridLayout(0, 1));
-            JLabel message = new JLabel("Your cart is currently empty.");
+            JLabel message = new JLabel("There are no items in your cart to checkout.");
             add(message);
         }
         

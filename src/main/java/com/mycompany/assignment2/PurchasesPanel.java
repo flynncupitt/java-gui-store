@@ -16,49 +16,31 @@ import javax.swing.JPanel;
  *
  * @author flynn
  */
-public class CartPanel extends JPanel {
+public class PurchasesPanel extends JPanel {
     HashMap<Integer,Integer> map = new HashMap();
     private DatabaseManager dbManager = DatabaseManager.getInstance();
     private MainFrame mainFrame;
-    private Double cartTotal = 0.0;
     
-    public CartPanel(MainFrame mainFrame) {
+    public PurchasesPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        
-//        JLabel title = new JLabel("Cart");
-//        add(title);
-        refreshCartPanel();
+        refreshPurchases();
     }
-    public void refreshCartPanel() {
+    
+    public void refreshPurchases() {
         removeAll();
-        cartTotal = 0.0;
-        map = dbManager.getCart();
+        map = dbManager.getPurchases();
         if (!map.isEmpty()) {
-            setLayout(new GridLayout(0, 3));
+            setLayout(new GridLayout(0, 2));
             for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
                 Product asProduct = dbManager.getProductFromId(entry.getKey());
-                cartTotal += (asProduct.getPrice() * entry.getValue());
-                int productId = entry.getKey();
-                
                 JLabel name = new JLabel(asProduct.getName());
                 JLabel quantity = new JLabel(String.valueOf(entry.getValue()) + " x $" + String.valueOf(asProduct.getPrice()));
-                JButton removeButton = new JButton((entry.getValue() > 1) ? "Subtract" : "Remove");
-                removeButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        dbManager.removeFromCart(productId);
-                        refreshCartPanel();
-                    }
-                });
                 add(name);
                 add(quantity);
-                add(removeButton);
             }
-            JLabel cartTotalLabel = new JLabel("Cart total: $" + String.valueOf(cartTotal));
-            add(cartTotalLabel);
         } else {
             setLayout(new GridLayout(0, 1));
-            JLabel message = new JLabel("Your cart is currently empty.");
+            JLabel message = new JLabel("You have not many any purchases yet.");
             add(message);
         }
         

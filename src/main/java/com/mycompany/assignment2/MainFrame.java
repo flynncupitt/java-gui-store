@@ -18,6 +18,8 @@ public class MainFrame extends JFrame {
     private DatabaseManager dbManager = DatabaseManager.getInstance();
     private BrowsePanel browsePanel;
     private CartPanel cartPanel;
+    private CheckoutPanel checkoutPanel;
+    private PurchasesPanel purchasesPanel;
 
     public MainFrame() {
         setTitle("Shopping System");
@@ -36,8 +38,9 @@ public class MainFrame extends JFrame {
 //        PhonePanel phonePanel = new PhonePanel();
 //        LaptopPanel laptopPanel = new LaptopPanel();
         cartPanel = new CartPanel(this);
-//        CheckoutPanel checkoutPanel = new CheckoutPanel();
-
+        checkoutPanel = new CheckoutPanel(this);
+        purchasesPanel = new PurchasesPanel(this);
+        
 //         Add panels to the CardLayout
         mainPanel.add(homePanel, "Home");
          mainPanel.add(browsePanel, "Browse");
@@ -45,6 +48,8 @@ public class MainFrame extends JFrame {
 //        mainPanel.add(phonePanel, "Phones");
 //        mainPanel.add(laptopPanel, "Laptops");
         mainPanel.add(cartPanel, "Cart");
+        mainPanel.add(checkoutPanel, "Checkout");
+        mainPanel.add(purchasesPanel, "Purchases");
 //        mainPanel.add(checkoutPanel, "Checkout");
 
         add(mainPanel);
@@ -56,6 +61,10 @@ public class MainFrame extends JFrame {
     public void showPanel(String panelName) {
         if(panelName.equals("Cart")) {
             cartPanel.refreshCartPanel();
+        } else if(panelName.equals("Checkout")) {
+            checkoutPanel.refreshCheckout();
+        } else if(panelName.equals("Purchases")) {
+            purchasesPanel.refreshPurchases();
         }
         cardLayout.show(mainPanel, panelName);
     }

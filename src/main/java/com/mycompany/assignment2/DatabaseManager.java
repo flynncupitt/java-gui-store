@@ -53,6 +53,55 @@ public final class DatabaseManager {
         return cart;
     }
     
+    public void clearCart() {
+        PreparedStatement statement;
+        
+        try {
+            String sql = "DELETE FROM cart_items WHERE customer_id = ?";
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, globalActiveCustomer);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void savePurchases() {
+        PreparedStatement statement;
+        
+        try {
+            String sql = "INSERT INTO purchases (customer_id, product_id, quantity) SELECT customer_id, product_id, quantity FROM cart_items WHERE customer_id = ?";
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, globalActiveCustomer);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions (e.g., log them)
+        }
+    }
+    
+    public HashMap<Integer, Integer> getPurchases() {
+        HashMap<Integer, Integer> purchases = new HashMap();
+        PreparedStatement statement;
+        ResultSet resultSet;
+        
+        try {
+            String sql = "SELECT product_id, quantity FROM purchases WHERE customer_id = ?";
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, globalActiveCustomer);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int productQuantity = resultSet.getInt("quantity");
+                purchases.put(resultSet.getInt("product_id"), productQuantity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions (e.g., log them)
+        }
+        return purchases;
+    }
+    
     public Product getProductFromId(int productId) {
         PreparedStatement statement;
         ResultSet nameSet;

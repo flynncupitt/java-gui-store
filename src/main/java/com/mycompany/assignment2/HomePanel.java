@@ -19,12 +19,13 @@ public class HomePanel extends JPanel {
     
     public HomePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-         setLayout(new GridLayout(5, 1, 10, 10));
+         setLayout(new GridLayout(0, 1, 10, 10));
             
         JButton browsePhonesButton = new JButton("Browse Phones");
         JButton browseLaptopsButton = new JButton("Browse Laptops");
         JButton viewCartButton = new JButton("View Cart");
         JButton checkoutButton = new JButton("Checkout");
+        JButton historyButton = new JButton("View Purchase History");
         JButton quitButton = new JButton("Quit");
         
         browsePhonesButton.addActionListener(new ActionListener() {
@@ -48,10 +49,25 @@ public class HomePanel extends JPanel {
                  mainFrame.showPanel("Cart");
             }
         });
+        checkoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch to BrowsePanel when button is clicked
+                 mainFrame.showPanel("Checkout");
+            }
+        });
+        historyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch to BrowsePanel when button is clicked
+                 mainFrame.showPanel("Purchases");
+            }
+        });
         add(browsePhonesButton);
         add(browseLaptopsButton);
         add(viewCartButton);
         add(checkoutButton);
+        add(historyButton);
         add(quitButton);
     }
     
