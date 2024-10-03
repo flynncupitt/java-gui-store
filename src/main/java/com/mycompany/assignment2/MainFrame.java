@@ -5,6 +5,12 @@
 
 package com.mycompany.assignment2;
 
+import com.mycompany.assignment2.Views.BrowsePanel;
+import com.mycompany.assignment2.Views.CartPanel;
+import com.mycompany.assignment2.Views.CheckoutPanel;
+import com.mycompany.assignment2.Views.HomePanel;
+import com.mycompany.assignment2.Views.ProductInfoPanel;
+import com.mycompany.assignment2.Views.PurchasesPanel;
 import java.awt.CardLayout;
 import javax.swing.*;
 
@@ -20,6 +26,8 @@ public class MainFrame extends JFrame {
     private CartPanel cartPanel;
     private CheckoutPanel checkoutPanel;
     private PurchasesPanel purchasesPanel;
+    private HomePanel homePanel;
+    private ProductInfoPanel productInfoPanel;
 
     public MainFrame() {
         setTitle("Shopping System");
@@ -27,62 +35,49 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create CardLayout to switch between different screens
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Create the panels for each section
-        JPanel homePanel = new HomePanel(this);
-        ProductInfoPanel productInfoPanel = new ProductInfoPanel(this);
+        homePanel = new HomePanel(this);
+        productInfoPanel = new ProductInfoPanel(this);
         browsePanel = new BrowsePanel(this, productInfoPanel);
-//        PhonePanel phonePanel = new PhonePanel();
-//        LaptopPanel laptopPanel = new LaptopPanel();
         cartPanel = new CartPanel(this);
         checkoutPanel = new CheckoutPanel(this);
         purchasesPanel = new PurchasesPanel(this);
         
-//         Add panels to the CardLayout
         mainPanel.add(homePanel, "Home");
          mainPanel.add(browsePanel, "Browse");
          mainPanel.add(productInfoPanel, "ProductInfo");
-//        mainPanel.add(phonePanel, "Phones");
-//        mainPanel.add(laptopPanel, "Laptops");
         mainPanel.add(cartPanel, "Cart");
         mainPanel.add(checkoutPanel, "Checkout");
         mainPanel.add(purchasesPanel, "Purchases");
-//        mainPanel.add(checkoutPanel, "Checkout");
-
+        mainPanel.
         add(mainPanel);
 
-        // Show the home panel first
         cardLayout.show(mainPanel, "Home");
     }
     
-    public void showPanel(String panelName) {
-        if(panelName.equals("Cart")) {
-            cartPanel.refreshCartPanel();
-        } else if(panelName.equals("Checkout")) {
-            checkoutPanel.refreshCheckout();
-        } else if(panelName.equals("Purchases")) {
-            purchasesPanel.refreshPurchases();
-        }
+    
+    public void setActivePanel(String panelName) {
         cardLayout.show(mainPanel, panelName);
     }
     
-    public void showBrowsePanel(String productType) {
-        if(productType.equals("phone")) {
-            browsePanel.setProducts(dbManager.getPhoneProducts());
-            showPanel("Browse");
-        } else if(productType.equals("laptop")) {
-            browsePanel.setProducts(dbManager.getLaptopProducts());
-            showPanel("Browse");
+    public JPanel getPanel(String panelName) {
+        switch(panelName) {
+            case "Home":
+                return homePanel;
+            case "Browse":
+                return browsePanel;
+            case "ProductInfo":
+                return productInfoPanel;
+            case "Cart":
+                return cartPanel;
+            case "Purchases":
+                return purchasesPanel;
+            case "Checkout":
+                return checkoutPanel;
         }
-    }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainFrame frame = new MainFrame();
-            frame.setVisible(true);
-        });
+        System.out.println("Couldn't find panel " + panelName);
+        return null;
     }
 }

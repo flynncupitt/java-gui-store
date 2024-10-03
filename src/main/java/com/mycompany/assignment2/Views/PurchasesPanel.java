@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.assignment2;
+package com.mycompany.assignment2.Views;
 
+import com.mycompany.assignment2.DatabaseManager;
+import com.mycompany.assignment2.MainFrame;
+import com.mycompany.assignment2.Product.Product;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

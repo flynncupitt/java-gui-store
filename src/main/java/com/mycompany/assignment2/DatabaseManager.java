@@ -4,6 +4,9 @@
  */
 package com.mycompany.assignment2;
 
+import com.mycompany.assignment2.Product.PhoneProduct;
+import com.mycompany.assignment2.Product.LaptopProduct;
+import com.mycompany.assignment2.Product.Product;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;

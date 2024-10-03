@@ -1,4 +1,4 @@
-package com.mycompany.assignment2;
+package com.mycompany.assignment2.Product;
 
 
 /*
