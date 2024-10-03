@@ -38,12 +38,12 @@ public class MainFrame extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        homePanel = new HomePanel(this);
+        homePanel = new HomePanel();
         productInfoPanel = new ProductInfoPanel(this);
-        browsePanel = new BrowsePanel(this, productInfoPanel);
-        cartPanel = new CartPanel(this);
-        checkoutPanel = new CheckoutPanel(this);
-        purchasesPanel = new PurchasesPanel(this);
+        browsePanel = new BrowsePanel(productInfoPanel);
+        cartPanel = new CartPanel();
+        checkoutPanel = new CheckoutPanel();
+        purchasesPanel = new PurchasesPanel();
         
         mainPanel.add(homePanel, "Home");
          mainPanel.add(browsePanel, "Browse");

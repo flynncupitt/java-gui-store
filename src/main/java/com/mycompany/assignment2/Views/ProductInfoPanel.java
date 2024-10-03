@@ -28,6 +28,8 @@ public class ProductInfoPanel extends JPanel {
     
     private JLabel nameLabel;
      private JLabel priceLabel;
+     JButton backButton;
+     JButton cartButton;
     
     public ProductInfoPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -37,36 +39,24 @@ public class ProductInfoPanel extends JPanel {
          add(nameLabel);
          priceLabel = new JLabel("Loading...");
          add(priceLabel);
-         JButton cartButton = new JButton("Add to cart");
-        cartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dbManager.addToCart(productId);
-            }
-        });
+         cartButton = new JButton("Add to cart");
         add(cartButton);
-         JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.showPanel("Browse");
-            }
-        });
+         backButton = new JButton("Back");
         add(backButton);
          
     }
     
-    public void setProductInfo(Product p) {
-        productId = p.getSku();
-        productType = p.getSku() < 200 ? "phone" : "laptop";
-        PhoneProduct pp = null;
-        LaptopProduct lp = null;
-        if(productType.equals("phone")) {
-            pp = (PhoneProduct) p;
-        } else if(productType.equals("laptop")) {
-            lp = (LaptopProduct) p;
-        }
-        nameLabel.setText(productType.equals("phone") ? p.getName() + ", " + pp.getColour() : p.getName() + ", " + lp.getScreenSize() + " inch");
-        priceLabel.setText("$" + String.valueOf(p.getPrice()));
+    public JButton getBackButton() {
+        return this.backButton;
+    }
+    
+    public JButton getCartButton() {
+        return this.cartButton;
+    }
+    
+    public void setProductInfo(int id, String name, double price) {
+        productId = id;
+        nameLabel.setText(name);
+        priceLabel.setText(String.valueOf(price));
     }
 }

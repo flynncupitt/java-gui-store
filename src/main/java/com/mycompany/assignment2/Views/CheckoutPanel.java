@@ -27,8 +27,7 @@ public class CheckoutPanel extends JPanel {
     private JButton backButton;
     private JButton checkoutButton;
     
-    public CheckoutPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public CheckoutPanel() {
 //        refreshCheckout();
     }
     

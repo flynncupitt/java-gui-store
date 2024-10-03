@@ -30,7 +30,7 @@ public class BrowseController extends BaseController<BrowsePanel>  {
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    pip.setProductInfo(products.get(index)); //waiting till migrated
+                    master.updatePip(products.get(index)); //waiting till migrated
                     master.showPanel("ProductInfo");
                 }
             });

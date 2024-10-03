@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.assignment2.Views;
-
-import com.mycompany.assignment2.DatabaseManager;
-import com.mycompany.assignment2.MainFrame;
 import com.mycompany.assignment2.Product.Product;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,24 +17,23 @@ import javax.swing.JPanel;
  * @author flynn
  */
 public class PurchasesPanel extends JPanel {
-    HashMap<Integer,Integer> map = new HashMap();
-    private DatabaseManager dbManager = DatabaseManager.getInstance();
-    private MainFrame mainFrame;
+    JButton backButton;
     
-    public PurchasesPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
-        refreshPurchases();
+    public PurchasesPanel() {
+//        refreshPurchases();
     }
     
-    public void refreshPurchases() {
+    public JButton getBackButton() {
+        return this.backButton;
+    }
+    
+    public void setPurchasesData(HashMap<Product, Integer> purchases) {
         removeAll();
-        map = dbManager.getPurchases();
-        if (!map.isEmpty()) {
+        if (!purchases.isEmpty()) {
             setLayout(new GridLayout(0, 2));
-            for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
-                Product asProduct = dbManager.getProductFromId(entry.getKey());
-                JLabel name = new JLabel(asProduct.getName());
-                JLabel quantity = new JLabel(String.valueOf(entry.getValue()) + " x $" + String.valueOf(asProduct.getPrice()));
+            for (HashMap.Entry<Product, Integer> entry : purchases.entrySet()) {
+                JLabel name = new JLabel(entry.getKey().getName());
+                JLabel quantity = new JLabel(String.valueOf(entry.getValue()) + " x $" + String.valueOf(entry.getKey().getPrice()));
                 add(name);
                 add(quantity);
             }
@@ -47,13 +43,8 @@ public class PurchasesPanel extends JPanel {
             add(message);
         }
         
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.showPanel("Home");
-            }
-            });
+        backButton = new JButton("Back");
+        
         add(backButton);
         revalidate();
         repaint();
