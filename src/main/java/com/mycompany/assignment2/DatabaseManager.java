@@ -162,6 +162,7 @@ public final class DatabaseManager {
         try {
             int ccq = countCartQuantity(product_id);
             if( ccq > 1) {
+                System.out.println("more than 1, subtracting");
                 String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
                 statement = conn.prepareStatement(updateSql);
                 statement.setInt(1,ccq-1);
@@ -169,6 +170,7 @@ public final class DatabaseManager {
                 statement.setInt(3, product_id);
                 statement.executeUpdate();
             } else if(ccq == 1) {
+                System.out.println("only 1, removing");
                 String sql = "DELETE FROM cart_items WHERE product_id = ? AND customer_id = ? ";
                 statement = conn.prepareStatement(sql);
                 statement.setInt(1, product_id);

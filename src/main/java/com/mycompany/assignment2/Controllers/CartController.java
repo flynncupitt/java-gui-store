@@ -24,7 +24,7 @@ public class CartController extends BaseController<CartPanel> {
     }
     
     public void refreshCartPanel() {
-
+        System.out.println("refresh cart called");
         double cartTotal = 0.0;
         HashMap<Integer, Integer> map = model.getCart();
         HashMap<Product, Integer> cartItems = new HashMap();

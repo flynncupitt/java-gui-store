@@ -5,7 +5,6 @@
 package com.mycompany.assignment2.Views;
 
 import com.mycompany.assignment2.Product.Product;
-import com.mycompany.assignment2.Views.ProductInfoPanel;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -39,6 +38,7 @@ public class BrowsePanel extends JPanel {
 
     public void setProducts(ArrayList<Product> prods) {
         removeAll();
+        productButtons.clear();
         for (Product product : prods) {
             JButton productButton = new JButton(product.getName());
             productButtons.add(productButton);

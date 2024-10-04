@@ -42,7 +42,7 @@ public class CheckoutPanel extends JPanel {
     public void setCheckoutData(HashMap<Product, Integer> cart, double total) {
         removeAll();
         if (!cart.isEmpty()) {
-            setLayout(new GridLayout(0, 3));
+            setLayout(new GridLayout(0, 2));
             for (HashMap.Entry<Product, Integer> entry : cart.entrySet()) {
                 JLabel name = new JLabel(entry.getKey().getName());
                 JLabel quantity = new JLabel(String.valueOf(entry.getValue()) + " x $" + String.valueOf(entry.getKey().getPrice()));

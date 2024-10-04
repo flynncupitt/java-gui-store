@@ -13,7 +13,7 @@ import com.mycompany.assignment2.DatabaseManager;
  */
 public class BaseController<E> {
     protected MasterController master;
-    protected DatabaseManager model;
+    protected DatabaseManager model = DatabaseManager.getInstance();
     protected E view;
     
     public BaseController(MasterController master, E view) {

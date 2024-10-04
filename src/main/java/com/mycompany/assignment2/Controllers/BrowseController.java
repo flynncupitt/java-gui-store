@@ -25,12 +25,14 @@ public class BrowseController extends BaseController<BrowsePanel>  {
     public void refreshBrowsePanel(ArrayList<Product> products) {
         view.setProducts(products);
         
-        int index = 0;
-        for (JButton b : view.getProductButtons()) {
-            b.addActionListener(new ActionListener() {
+        ArrayList<JButton> buttons = view.getProductButtons();
+        System.out.println(buttons.size() + " buttons and " + products.size() + " products");
+        for (int i = 0; i < buttons.size(); i++) {
+            final int currentButtonIndex = i;
+            buttons.get(i).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    master.updatePip(products.get(index)); //waiting till migrated
+                    master.updatePip(products.get(currentButtonIndex));
                     master.showPanel("ProductInfo");
                 }
             });

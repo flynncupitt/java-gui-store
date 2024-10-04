@@ -17,7 +17,7 @@ public class PipController extends BaseController<ProductInfoPanel> {
     public PipController(MasterController master, ProductInfoPanel view) {
         super(master, view);
         
-        view.getBackButton().addActionListener(e -> master.showPanel("Home"));
+        view.getBackButton().addActionListener(e -> master.showPanel("Browse"));
     }
     
     public void setProductInfo(Product p) {

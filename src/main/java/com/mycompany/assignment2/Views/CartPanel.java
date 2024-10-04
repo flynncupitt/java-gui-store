@@ -35,7 +35,9 @@ public class CartPanel extends JPanel {
     }
     
     public void setCartData(HashMap<Product, Integer> cart, double total) {
+        System.out.println("Setting new cart data");
         removeAll();
+        removeButtons.clear();
         if (!cart.isEmpty()) {
             setLayout(new GridLayout(0, 3));
             for (HashMap.Entry<Product, Integer> entry : cart.entrySet()) {

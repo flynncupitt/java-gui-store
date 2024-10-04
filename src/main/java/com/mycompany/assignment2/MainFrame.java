@@ -51,7 +51,6 @@ public class MainFrame extends JFrame {
         mainPanel.add(cartPanel, "Cart");
         mainPanel.add(checkoutPanel, "Checkout");
         mainPanel.add(purchasesPanel, "Purchases");
-        mainPanel.
         add(mainPanel);
 
         cardLayout.show(mainPanel, "Home");
