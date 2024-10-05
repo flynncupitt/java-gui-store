@@ -35,6 +35,7 @@ public class CartPanel extends JPanel {
     }
     
     public void setCartData(HashMap<Product, Integer> cart, double total) {
+        int tempCount = 0;
         System.out.println("Setting new cart data");
         removeAll();
         removeButtons.clear();
@@ -48,6 +49,8 @@ public class CartPanel extends JPanel {
                 add(quantity);
                 add(removeButton);
                 removeButtons.add(removeButton);
+                System.out.println("ADDED button " + tempCount + " for " + entry.getKey().getSku());
+                tempCount++;
             }
             JLabel cartTotalLabel = new JLabel("Cart total: $" + String.valueOf(cartTotal));
             add(cartTotalLabel);

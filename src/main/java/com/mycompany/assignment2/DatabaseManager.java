@@ -160,6 +160,7 @@ public final class DatabaseManager {
      public void removeFromCart(int product_id) {
         PreparedStatement statement;
         try {
+            System.out.println("removing " + getProductFromId(product_id).getName());
             int ccq = countCartQuantity(product_id);
             if( ccq > 1) {
                 System.out.println("more than 1, subtracting");

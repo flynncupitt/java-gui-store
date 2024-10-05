@@ -40,10 +40,12 @@ public class CartController extends BaseController<CartPanel> {
         ArrayList<JButton> buttons = view.getRemoveButtons();
         int index = 0;
         for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
+            final int productId = entry.getKey();
+            System.out.println("button " + index + " is for " + productId);
             buttons.get(index).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    model.removeFromCart(entry.getKey());
+                    model.removeFromCart(productId);
                     refreshCartPanel();
                 }
             });
