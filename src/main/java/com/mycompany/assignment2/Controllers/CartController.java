@@ -5,6 +5,7 @@
 package com.mycompany.assignment2.Controllers;
 
 import com.mycompany.assignment2.DatabaseManager;
+import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.CartPanel;
 import java.awt.event.ActionEvent;
@@ -24,24 +25,19 @@ public class CartController extends BaseController<CartPanel> {
     }
     
     public void refreshCartPanel() {
-        System.out.println("refresh cart called");
         double cartTotal = 0.0;
-        HashMap<Integer, Integer> map = model.getCart();
-        HashMap<Product, Integer> cartItems = new HashMap();
-
-        for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
-            Product asProduct = model.getProductFromId(entry.getKey());
-            cartTotal += (asProduct.getPrice() * entry.getValue());
-            cartItems.put(asProduct, entry.getValue());
+        ArrayList<CartItem> cartItems = model.getCart();
+        
+        for(CartItem item : cartItems) {
+            cartTotal += (item.getProduct().getPrice() * item.getQuantity());
         }
 
         view.setCartData(cartItems, cartTotal);
 
         ArrayList<JButton> buttons = view.getRemoveButtons();
         int index = 0;
-        for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
-            final int productId = entry.getKey();
-            System.out.println("button " + index + " is for " + productId);
+        for (CartItem item : cartItems) {
+            final int productId = item.getProduct().getSku();
             buttons.get(index).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

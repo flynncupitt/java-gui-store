@@ -57,6 +57,6 @@ public class ProductInfoPanel extends JPanel {
     public void setProductInfo(int id, String name, double price) {
         productId = id;
         nameLabel.setText(name);
-        priceLabel.setText(String.valueOf(price));
+        priceLabel.setText(String.format("$%,.2f", price));
     }
 }

@@ -6,10 +6,12 @@ package com.mycompany.assignment2.Views;
 
 import com.mycompany.assignment2.DatabaseManager;
 import com.mycompany.assignment2.MainFrame;
+import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.Product;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -39,17 +41,17 @@ public class CheckoutPanel extends JPanel {
         return this.checkoutButton;
     }
     
-    public void setCheckoutData(HashMap<Product, Integer> cart, double total) {
+    public void setCheckoutData(ArrayList<CartItem> cart, double total) {
         removeAll();
         if (!cart.isEmpty()) {
             setLayout(new GridLayout(0, 2));
-            for (HashMap.Entry<Product, Integer> entry : cart.entrySet()) {
-                JLabel name = new JLabel(entry.getKey().getName());
-                JLabel quantity = new JLabel(String.valueOf(entry.getValue()) + " x $" + String.valueOf(entry.getKey().getPrice()));
+            for (CartItem item : cart) {
+                JLabel name = new JLabel(item.getProduct().getName());
+                JLabel quantity = new JLabel(String.valueOf(item.getQuantity()) + " x $" + String.valueOf(item.getProduct().getPrice()));
                 add(name);
                 add(quantity);
             }
-            JLabel cartTotalLabel = new JLabel("Cart total: $" + String.valueOf(cartTotal));
+            JLabel cartTotalLabel = new JLabel("Cart total: $" + String.format("%,.2f", total));
             add(cartTotalLabel);
             
             checkoutButton = new JButton("Pay & Exit");

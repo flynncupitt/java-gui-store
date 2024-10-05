@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignment2.Controllers;
 
+import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.CheckoutPanel;
 import java.awt.event.ActionEvent;
@@ -25,16 +26,13 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
     public void refreshCheckoutPanel() {
 
         double cartTotal = 0.0;
-        HashMap<Integer, Integer> map = model.getCart();
-        HashMap<Product, Integer> cartItems = new HashMap();
+        ArrayList<CartItem> cart = model.getCart();
 
-        for (HashMap.Entry<Integer, Integer> entry : map.entrySet()) {
-            Product asProduct = model.getProductFromId(entry.getKey());
-            cartTotal += (asProduct.getPrice() * entry.getValue());
-            cartItems.put(asProduct, entry.getValue());
+        for(CartItem item : cart) {
+            cartTotal += (item.getProduct().getPrice() * item.getQuantity());
         }
 
-        view.setCheckoutData(cartItems, cartTotal);
+        view.setCheckoutData(cart, cartTotal);
 
         view.getBackButton().addActionListener(new ActionListener() {
             @Override

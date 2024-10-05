@@ -4,6 +4,7 @@
  */
 package com.mycompany.assignment2;
 
+import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.PhoneProduct;
 import com.mycompany.assignment2.Product.LaptopProduct;
 import com.mycompany.assignment2.Product.Product;
@@ -34,8 +35,8 @@ public final class DatabaseManager {
         establishConnection();
     }
     
-    public HashMap<Integer, Integer> getCart() {
-        HashMap<Integer, Integer> cart = new HashMap();
+    public ArrayList<CartItem> getCart() {
+        ArrayList<CartItem> cart = new ArrayList();
         PreparedStatement statement;
         ResultSet cartItems;
         
@@ -47,7 +48,8 @@ public final class DatabaseManager {
 
             while (cartItems.next()) {
                 int productQuantity = cartItems.getInt("quantity");
-                cart.put(cartItems.getInt("product_id"), productQuantity);
+                Product p = getProductFromId(cartItems.getInt("product_id"));
+                cart.add(new CartItem(p, productQuantity));
             }
         } catch (SQLException e) {
             e.printStackTrace();
