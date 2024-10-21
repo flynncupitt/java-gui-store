@@ -28,6 +28,7 @@ public class CheckoutPanel extends JPanel {
     private Double cartTotal = 0.0;
     private JButton backButton;
     private JButton checkoutButton;
+    private JButton quitButton;
     
     public CheckoutPanel() {
 //        refreshCheckout();
@@ -39,6 +40,10 @@ public class CheckoutPanel extends JPanel {
     
     public JButton getCheckoutButton() {
         return this.checkoutButton;
+    }
+    
+    public JButton getQuitButton() {
+        return this.quitButton;
     }
     
     public void setCheckoutData(ArrayList<CartItem> cart, double total) {
@@ -63,6 +68,8 @@ public class CheckoutPanel extends JPanel {
         }
         backButton = new JButton("Back");
         add(backButton);
+        quitButton = new JButton("Quit");
+        add(quitButton);
         revalidate();
         repaint();
     }

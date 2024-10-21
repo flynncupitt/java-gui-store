@@ -18,6 +18,7 @@ import javax.swing.JPanel;
  */
 public class PurchasesPanel extends JPanel {
     JButton backButton;
+    JButton quitButton;
     
     public PurchasesPanel() {
 //        refreshPurchases();
@@ -25,6 +26,10 @@ public class PurchasesPanel extends JPanel {
     
     public JButton getBackButton() {
         return this.backButton;
+    }
+    
+    public JButton getQuitButton() {
+        return this.quitButton;
     }
     
     public void setPurchasesData(HashMap<Product, Integer> purchases) {
@@ -44,8 +49,9 @@ public class PurchasesPanel extends JPanel {
         }
         
         backButton = new JButton("Back");
-        
         add(backButton);
+        quitButton = new JButton("Quit");
+        add(quitButton);
         revalidate();
         repaint();
     }

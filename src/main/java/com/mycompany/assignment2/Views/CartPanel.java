@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 public class CartPanel extends JPanel {
     private ArrayList<JButton> removeButtons = new ArrayList();
     private JButton backButton;
+    private JButton quitButton;
     
     public CartPanel() {
     }
@@ -34,9 +35,11 @@ public class CartPanel extends JPanel {
         return this.backButton;
     }
     
+    public JButton getQuitButton() {
+        return this.quitButton;
+    }
+    
     public void setCartData(ArrayList<CartItem> cart, double total) {
-        int tempCount = 0;
-        System.out.println("Setting new cart data");
         removeAll();
         removeButtons.clear();
         if (!cart.isEmpty()) {
@@ -45,12 +48,11 @@ public class CartPanel extends JPanel {
                 Product p = item.getProduct();
                 JLabel name = new JLabel(p.getName());
                 JLabel quantity = new JLabel(String.valueOf(item.getQuantity()) + " x $" + String.valueOf(p.getPrice()));
-                JButton removeButton = new JButton((item.getQuantity() > 1) ? "Subtract"+tempCount : "Remove"+tempCount);
+                JButton removeButton = new JButton(item.getQuantity() > 1 ? "Subtract" : "Remove");
                 add(name);
                 add(quantity);
                 add(removeButton);
                 removeButtons.add(removeButton);
-                tempCount++;
             }
             JLabel cartTotalLabel = new JLabel("Total: $" + String.format("%,.2f", total));
             add(cartTotalLabel);
@@ -62,6 +64,8 @@ public class CartPanel extends JPanel {
         }
         backButton = new JButton("Back");
         add(backButton);
+        quitButton = new JButton("Quit");
+        add(quitButton);
         revalidate();
         repaint();
     }

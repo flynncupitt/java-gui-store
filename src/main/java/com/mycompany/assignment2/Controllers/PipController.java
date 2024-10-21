@@ -32,5 +32,6 @@ public class PipController extends BaseController<ProductInfoPanel> {
         }
         view.setProductInfo(productId, nameInfo, p.getPrice());
         view.getCartButton().addActionListener(e -> model.addToCart(productId));
+        view.getQuitButton().addActionListener(e -> master.globalQuit());
     }
 }

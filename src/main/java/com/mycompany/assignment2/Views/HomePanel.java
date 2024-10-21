@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -16,7 +17,8 @@ import javax.swing.JPanel;
  * @author flynn
  */
 public class HomePanel extends JPanel {
-     JButton browsePhonesButton;
+    JLabel greeting;
+    JButton browsePhonesButton;
     JButton browseLaptopsButton;
     JButton viewCartButton;
     JButton checkoutButton;
@@ -25,7 +27,7 @@ public class HomePanel extends JPanel {
     
     public HomePanel() {
          setLayout(new GridLayout(0, 1, 10, 10));
-            
+        greeting = new JLabel("Welcome");
         browsePhonesButton = new JButton("Browse Phones");
         browseLaptopsButton = new JButton("Browse Laptops");
         viewCartButton = new JButton("View Cart");
@@ -33,6 +35,7 @@ public class HomePanel extends JPanel {
         purchasesButton = new JButton("View Purchase History");
         quitButton = new JButton("Quit");
         
+        add(greeting);
         add(browsePhonesButton);
         add(browseLaptopsButton);
         add(viewCartButton);
@@ -40,6 +43,11 @@ public class HomePanel extends JPanel {
         add(purchasesButton);
         add(quitButton);
         
+        
+    }
+    
+    public void setGreetingText(String s) {
+        this.greeting.setText(s);
     }
     
     public JButton getButton(String name) {

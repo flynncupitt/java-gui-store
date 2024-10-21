@@ -20,6 +20,7 @@ public class BrowsePanel extends JPanel {
     private ArrayList<JButton> productButtons = new ArrayList();
     JLabel title = new JLabel("Browsing");
     JButton backButton;
+    JButton quitButton;
 
     public BrowsePanel(ProductInfoPanel pip) {
         this.pip = pip;
@@ -34,6 +35,10 @@ public class BrowsePanel extends JPanel {
     public JButton getBackButton() {
         return this.backButton;
     }
+    
+    public JButton getQuitButton() {
+        return this.quitButton;
+    }
 
 
     public void setProducts(ArrayList<Product> prods) {
@@ -46,6 +51,8 @@ public class BrowsePanel extends JPanel {
         }
         backButton = new JButton("Back");
         add(backButton);
+        quitButton = new JButton("Quit");
+        add(quitButton);
         revalidate();
         repaint();
     }

@@ -33,6 +33,7 @@ public class PurchasesController extends BaseController<PurchasesPanel> {
         view.setPurchasesData(purchases);
 
         view.getBackButton().addActionListener(e -> master.showPanel("Home"));
+        view.getQuitButton().addActionListener(e -> master.globalQuit());
     }
     
 }

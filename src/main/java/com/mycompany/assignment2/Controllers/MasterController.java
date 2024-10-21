@@ -11,6 +11,7 @@ import com.mycompany.assignment2.Views.BrowsePanel;
 import com.mycompany.assignment2.Views.CartPanel;
 import com.mycompany.assignment2.Views.CheckoutPanel;
 import com.mycompany.assignment2.Views.HomePanel;
+import com.mycompany.assignment2.Views.LoginPanel;
 import com.mycompany.assignment2.Views.ProductInfoPanel;
 import com.mycompany.assignment2.Views.PurchasesPanel;
 
@@ -28,6 +29,7 @@ public class MasterController {
     BrowseController  browseController;
     PurchasesController purchasesController;
     PipController pipController;
+    LoginController loginController;
     
     public MasterController(MainFrame frame) {
         this.frame = frame;
@@ -37,10 +39,19 @@ public class MasterController {
         browseController = new BrowseController(this, (BrowsePanel) frame.getPanel("Browse"));
         purchasesController = new PurchasesController(this, (PurchasesPanel) frame.getPanel("Purchases"));
         pipController = new PipController(this, (ProductInfoPanel) frame.getPanel("ProductInfo"));
+        loginController = new LoginController(this, (LoginPanel) frame.getPanel("Login"));
     }
     
     public void updatePip(Product p) {
         pipController.setProductInfo(p);
+    }
+    
+    public void globalQuit() {
+        System.exit(0);
+    }
+    
+    public void setActiveUserGreeting() {
+        homeController.setActiveUser();
     }
     public void showPanel(String panelName) {
         switch (panelName) {

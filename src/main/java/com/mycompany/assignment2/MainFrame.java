@@ -9,6 +9,7 @@ import com.mycompany.assignment2.Views.BrowsePanel;
 import com.mycompany.assignment2.Views.CartPanel;
 import com.mycompany.assignment2.Views.CheckoutPanel;
 import com.mycompany.assignment2.Views.HomePanel;
+import com.mycompany.assignment2.Views.LoginPanel;
 import com.mycompany.assignment2.Views.ProductInfoPanel;
 import com.mycompany.assignment2.Views.PurchasesPanel;
 import java.awt.CardLayout;
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame {
     private PurchasesPanel purchasesPanel;
     private HomePanel homePanel;
     private ProductInfoPanel productInfoPanel;
+    private LoginPanel loginPanel;
 
     public MainFrame() {
         setTitle("Shopping System");
@@ -44,16 +46,18 @@ public class MainFrame extends JFrame {
         cartPanel = new CartPanel();
         checkoutPanel = new CheckoutPanel();
         purchasesPanel = new PurchasesPanel();
+        loginPanel = new LoginPanel();
         
         mainPanel.add(homePanel, "Home");
-         mainPanel.add(browsePanel, "Browse");
-         mainPanel.add(productInfoPanel, "ProductInfo");
+        mainPanel.add(browsePanel, "Browse");
+        mainPanel.add(productInfoPanel, "ProductInfo");
         mainPanel.add(cartPanel, "Cart");
         mainPanel.add(checkoutPanel, "Checkout");
         mainPanel.add(purchasesPanel, "Purchases");
+        mainPanel.add(loginPanel, "Login");
         add(mainPanel);
 
-        cardLayout.show(mainPanel, "Home");
+        cardLayout.show(mainPanel, "Login");
     }
     
     
@@ -75,6 +79,8 @@ public class MainFrame extends JFrame {
                 return purchasesPanel;
             case "Checkout":
                 return checkoutPanel;
+            case "Login":
+                return loginPanel;
         }
         System.out.println("Couldn't find panel " + panelName);
         return null;

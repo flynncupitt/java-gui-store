@@ -30,10 +30,11 @@ public class ProductInfoPanel extends JPanel {
      private JLabel priceLabel;
      JButton backButton;
      JButton cartButton;
+     JButton quitButton;
     
     public ProductInfoPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-         setLayout(new GridLayout(0, 2));
+         setLayout(new GridLayout(0, 3));
          
          nameLabel = new JLabel("Loading...");
          add(nameLabel);
@@ -43,6 +44,8 @@ public class ProductInfoPanel extends JPanel {
         add(cartButton);
          backButton = new JButton("Back");
         add(backButton);
+        quitButton = new JButton("Quit");
+        add(quitButton);
          
     }
     
@@ -52,6 +55,9 @@ public class ProductInfoPanel extends JPanel {
     
     public JButton getCartButton() {
         return this.cartButton;
+    }
+    public JButton getQuitButton() {
+        return this.quitButton;
     }
     
     public void setProductInfo(int id, String name, double price) {

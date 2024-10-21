@@ -28,7 +28,7 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
         double cartTotal = 0.0;
         ArrayList<CartItem> cart = model.getCart();
 
-        for(CartItem item : cart) {
+        for (CartItem item : cart) {
             cartTotal += (item.getProduct().getPrice() * item.getQuantity());
         }
 
@@ -40,14 +40,23 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
                 master.showPanel("Home");
             }
         });
+        
+        view.getQuitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                master.globalQuit();
+            }
+        });
 
         view.getCheckoutButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.savePurchases();
                 model.clearCart();
+                master.globalQuit();
             }
         });
+
     }
 
 }

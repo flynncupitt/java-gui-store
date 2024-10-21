@@ -28,11 +28,63 @@ public final class DatabaseManager {
 
     private static DatabaseManager instance;
     private static final String URL = "jdbc:derby:ShopDB;create=true";
-    private static int globalActiveCustomer = 1; //MUST CHANGE TO BE DYNAMIC
+    private static int globalActiveCustomer;
     Connection conn;
 
     public DatabaseManager() {
         establishConnection();
+    }
+    
+    //Handles login/sign up process: check if customer exists, then login else create customer
+    public void userLoginSignup(String username) {
+        
+        
+        PreparedStatement statement;
+        ResultSet customer;
+        try {
+            String selectSql = "SELECT id FROM customers WHERE username = ?";
+            statement = conn.prepareStatement(selectSql);
+            statement.setString(1, username);
+            customer = statement.executeQuery();
+            
+            if(customer.next()) {
+                globalActiveCustomer = customer.getInt("id");
+                System.out.println("customer exists: set active customer: " + customer.getInt("id"));
+            } else {
+                String insertSql = "INSERT INTO customers (username) VALUES (?)";
+                statement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, username);
+                statement.executeUpdate();
+                
+                customer = statement.getGeneratedKeys();
+                if(customer.next()) {
+                    globalActiveCustomer = customer.getInt(1);
+                    System.out.println("customer doesn't exist, creating with ID: " + customer.getInt(1));
+                }
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String getActiveUserName() {
+        PreparedStatement statement;
+        ResultSet user;
+        
+        try {
+            String sql = "SELECT username FROM customers WHERE id = ?";
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, globalActiveCustomer);
+            user = statement.executeQuery();
+
+            if (user.next()) {
+                return user.getString("username");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
     
     public ArrayList<CartItem> getCart() {
@@ -53,7 +105,6 @@ public final class DatabaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exceptions (e.g., log them)
         }
         return cart;
     }
@@ -162,10 +213,8 @@ public final class DatabaseManager {
      public void removeFromCart(int product_id) {
         PreparedStatement statement;
         try {
-            System.out.println("removing " + getProductFromId(product_id).getName());
             int ccq = countCartQuantity(product_id);
             if( ccq > 1) {
-                System.out.println("more than 1, subtracting");
                 String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
                 statement = conn.prepareStatement(updateSql);
                 statement.setInt(1,ccq-1);
@@ -173,7 +222,6 @@ public final class DatabaseManager {
                 statement.setInt(3, product_id);
                 statement.executeUpdate();
             } else if(ccq == 1) {
-                System.out.println("only 1, removing");
                 String sql = "DELETE FROM cart_items WHERE product_id = ? AND customer_id = ? ";
                 statement = conn.prepareStatement(sql);
                 statement.setInt(1, product_id);

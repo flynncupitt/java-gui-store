@@ -54,6 +54,12 @@ public class CartController extends BaseController<CartPanel> {
                 master.showPanel("Home");
             }
             });
+        view.getQuitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                master.globalQuit();
+            }
+            });
     }
     
             

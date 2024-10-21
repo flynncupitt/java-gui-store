@@ -26,7 +26,6 @@ public class BrowseController extends BaseController<BrowsePanel>  {
         view.setProducts(products);
         
         ArrayList<JButton> buttons = view.getProductButtons();
-        System.out.println(buttons.size() + " buttons and " + products.size() + " products");
         for (int i = 0; i < buttons.size(); i++) {
             final int currentButtonIndex = i;
             buttons.get(i).addActionListener(new ActionListener() {
@@ -42,6 +41,13 @@ public class BrowseController extends BaseController<BrowsePanel>  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 master.showPanel("Home");
+            }
+        });
+         
+         view.getQuitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                master.globalQuit();
             }
         });
     }

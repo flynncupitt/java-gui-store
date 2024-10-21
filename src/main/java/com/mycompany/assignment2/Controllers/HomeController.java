@@ -20,5 +20,10 @@ public class HomeController extends BaseController<HomePanel> {
         view.getButton("Cart").addActionListener(e -> master.showPanel("Cart"));
         view.getButton("Checkout").addActionListener(e -> master.showPanel("Checkout"));
         view.getButton("Purchases").addActionListener(e -> master.showPanel("Purchases"));
+        view.getButton("Quit").addActionListener(e -> master.globalQuit());
+    }
+    
+    public void setActiveUser() {
+        view.setGreetingText("Welcome, " + model.getActiveUserName());
     }
 }

@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sun Oct 06 12:41:42 NZDT 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0192-5f0f-7703-0000074076d8 
-on database directory /Users/flynncupitt/Desktop/java-gui-store/ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@277050dc 
-Loaded from file:/Users/flynncupitt/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Mon Oct 21 16:10:25 NZDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0192-ad0d-f2fa-00001751c318 
+on database directory C:\Users\flynn\OneDrive - AUT University\Program Design and Construction\Assignment2\ShopDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@30946e09 
+Loaded from file:/C:/Users/flynn/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=11.0.23+7-LTS-222
-user.dir=/Users/flynncupitt/Desktop/java-gui-store
-os.name=Mac OS X
-os.arch=aarch64
-os.version=14.5
+user.dir=C:\Users\flynn\OneDrive - AUT University\Program Design and Construction\Assignment2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
