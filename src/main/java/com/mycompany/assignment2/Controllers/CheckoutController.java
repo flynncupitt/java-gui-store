@@ -47,15 +47,16 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
                 master.globalQuit();
             }
         });
-
-        view.getCheckoutButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                model.savePurchases();
-                model.clearCart();
-                master.globalQuit();
-            }
-        });
+        if (!cart.isEmpty()) {
+            view.getCheckoutButton().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.savePurchases();
+                    model.clearCart();
+                    master.globalQuit();
+                }
+            });
+        }
 
     }
 

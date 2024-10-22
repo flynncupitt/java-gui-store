@@ -34,11 +34,10 @@ public final class DatabaseManager {
     public DatabaseManager() {
         establishConnection();
     }
-    
+
     //Handles login/sign up process: check if customer exists, then login else create customer
     public void userLoginSignup(String username) {
-        
-        
+
         PreparedStatement statement;
         ResultSet customer;
         try {
@@ -46,8 +45,8 @@ public final class DatabaseManager {
             statement = conn.prepareStatement(selectSql);
             statement.setString(1, username);
             customer = statement.executeQuery();
-            
-            if(customer.next()) {
+
+            if (customer.next()) {
                 globalActiveCustomer = customer.getInt("id");
                 System.out.println("customer exists: set active customer: " + customer.getInt("id"));
             } else {
@@ -55,23 +54,23 @@ public final class DatabaseManager {
                 statement = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, username);
                 statement.executeUpdate();
-                
+
                 customer = statement.getGeneratedKeys();
-                if(customer.next()) {
+                if (customer.next()) {
                     globalActiveCustomer = customer.getInt(1);
                     System.out.println("customer doesn't exist, creating with ID: " + customer.getInt(1));
                 }
-                
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public String getActiveUserName() {
         PreparedStatement statement;
         ResultSet user;
-        
+
         try {
             String sql = "SELECT username FROM customers WHERE id = ?";
             statement = conn.prepareStatement(sql);
@@ -86,12 +85,12 @@ public final class DatabaseManager {
         }
         return "";
     }
-    
+
     public ArrayList<CartItem> getCart() {
         ArrayList<CartItem> cart = new ArrayList();
         PreparedStatement statement;
         ResultSet cartItems;
-        
+
         try {
             String sql = "SELECT product_id, quantity FROM cart_items WHERE customer_id = ?";
             statement = conn.prepareStatement(sql);
@@ -108,10 +107,10 @@ public final class DatabaseManager {
         }
         return cart;
     }
-    
+
     public void clearCart() {
         PreparedStatement statement;
-        
+
         try {
             String sql = "DELETE FROM cart_items WHERE customer_id = ?";
             statement = conn.prepareStatement(sql);
@@ -121,26 +120,44 @@ public final class DatabaseManager {
             e.printStackTrace();
         }
     }
-    
+
     public void savePurchases() {
         PreparedStatement statement;
-        
+        PreparedStatement updateStatement;
+        PreparedStatement insertStatement;
         try {
-            String sql = "INSERT INTO purchases (customer_id, product_id, quantity) SELECT customer_id, product_id, quantity FROM cart_items WHERE customer_id = ?";
-            statement = conn.prepareStatement(sql);
-            statement.setInt(1, globalActiveCustomer);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle exceptions (e.g., log them)
+                // Update existing quantities
+                String updateSql = "UPDATE purchases SET quantity = quantity + (SELECT quantity FROM cart_items WHERE customer_id = ? AND product_id = purchases.product_id) "
+                        + "WHERE customer_id = ? AND product_id IN (SELECT product_id FROM cart_items WHERE customer_id = ?)";
+                updateStatement = conn.prepareStatement(updateSql);
+                updateStatement.setInt(1, globalActiveCustomer);
+                updateStatement.setInt(2, globalActiveCustomer);
+                updateStatement.setInt(3, globalActiveCustomer);
+                int updatedRows = updateStatement.executeUpdate();
+                System.out.println("Rows updated: " + updatedRows);
+
+                // Now insert the new records from cart_items that don't exist in purchases
+                String insertSql = "INSERT INTO purchases (customer_id, product_id, quantity) "
+                        + "SELECT customer_id, product_id, quantity FROM cart_items WHERE customer_id = ? "
+                        + "AND product_id NOT IN (SELECT product_id FROM purchases WHERE customer_id = ?)";
+                insertStatement = conn.prepareStatement(insertSql);
+                insertStatement.setInt(1, globalActiveCustomer);
+                insertStatement.setInt(2, globalActiveCustomer);
+                int insertedRows = insertStatement.executeUpdate();
+                System.out.println("Rows inserted: " + insertedRows);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle exceptions (e.g., log them)
+            }
         }
-    }
     
+    
+
     public HashMap<Integer, Integer> getPurchases() {
         HashMap<Integer, Integer> purchases = new HashMap();
         PreparedStatement statement;
         ResultSet resultSet;
-        
+
         try {
             String sql = "SELECT product_id, quantity FROM purchases WHERE customer_id = ?";
             statement = conn.prepareStatement(sql);
@@ -157,11 +174,11 @@ public final class DatabaseManager {
         }
         return purchases;
     }
-    
+
     public Product getProductFromId(int productId) {
         PreparedStatement statement;
         ResultSet nameSet;
-        
+
         try {
             String sql = "SELECT * FROM PRODUCTS WHERE id = ?";
             statement = conn.prepareStatement(sql);
@@ -174,22 +191,22 @@ public final class DatabaseManager {
                     return new LaptopProduct(productId, nameSet.getString("name"), nameSet.getDouble("price"), nameSet.getDouble("screensize"));
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle exceptions (e.g., log them)
         }
         return null;
     }
-    
+
     public void addToCart(int product_id) {
         try {
             PreparedStatement statement;
             int currentQuantity = countCartQuantity(product_id);
-            if( currentQuantity > 0) {
+            if (currentQuantity > 0) {
                 String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
                 statement = conn.prepareStatement(updateSql);
-                statement.setInt(1,currentQuantity+1);
+                statement.setInt(1, currentQuantity + 1);
                 statement.setInt(2, globalActiveCustomer);
                 statement.setInt(3, product_id);
                 statement.executeUpdate();
@@ -209,19 +226,19 @@ public final class DatabaseManager {
             ex.printStackTrace();
         }
     }
-    
-     public void removeFromCart(int product_id) {
+
+    public void removeFromCart(int product_id) {
         PreparedStatement statement;
         try {
             int ccq = countCartQuantity(product_id);
-            if( ccq > 1) {
+            if (ccq > 1) {
                 String updateSql = "UPDATE cart_items SET quantity = ? WHERE customer_id = ? AND product_id = ?";
                 statement = conn.prepareStatement(updateSql);
-                statement.setInt(1,ccq-1);
+                statement.setInt(1, ccq - 1);
                 statement.setInt(2, globalActiveCustomer);
                 statement.setInt(3, product_id);
                 statement.executeUpdate();
-            } else if(ccq == 1) {
+            } else if (ccq == 1) {
                 String sql = "DELETE FROM cart_items WHERE product_id = ? AND customer_id = ? ";
                 statement = conn.prepareStatement(sql);
                 statement.setInt(1, product_id);
@@ -230,12 +247,12 @@ public final class DatabaseManager {
             } else {
                 System.out.println("ERROR - TRIED TO DELETE NON-EXISTENT ITEM IN CART");
             }
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     private int countCartQuantity(int product_id) {
         PreparedStatement statement;
         ResultSet resultSet = null;
@@ -255,7 +272,7 @@ public final class DatabaseManager {
         }
         return quantity;
     }
-    
+
     public ArrayList<Product> getPhoneProducts() {
         ArrayList<Product> phones = new ArrayList();
         try {
@@ -272,7 +289,7 @@ public final class DatabaseManager {
         }
         return phones;
     }
-    
+
     public ArrayList<Product> getLaptopProducts() {
         ArrayList<Product> laptops = new ArrayList();
         try {
@@ -289,8 +306,8 @@ public final class DatabaseManager {
         }
         return laptops;
     }
-    
-public static DatabaseManager getInstance() {
+
+    public static DatabaseManager getInstance() {
         if (instance == null) {
             instance = new DatabaseManager();
         }
@@ -309,15 +326,5 @@ public static DatabaseManager getInstance() {
             }
         }
     }
-//
-//    public void closeConnections() {
-//        if (conn != null) {
-//            try {
-//                conn.close();
-//            } catch (SQLException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//        }
-//    }
 
 }

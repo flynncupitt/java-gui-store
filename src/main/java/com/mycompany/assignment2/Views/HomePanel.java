@@ -50,6 +50,10 @@ public class HomePanel extends JPanel {
         this.greeting.setText(s);
     }
     
+    public String getGreetingText() {
+        return this.greeting.getText();
+    }
+    
     public JButton getButton(String name) {
         switch(name) {
             case "Browse.Phones":

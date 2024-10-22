@@ -21,7 +21,6 @@ import javax.swing.JPanel;
  * @author flynn
  */
 public class ProductInfoPanel extends JPanel {
-    private MainFrame mainFrame;
     private DatabaseManager dbManager = DatabaseManager.getInstance();
     private String productType;
     private int productId;
@@ -32,8 +31,7 @@ public class ProductInfoPanel extends JPanel {
      JButton cartButton;
      JButton quitButton;
     
-    public ProductInfoPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ProductInfoPanel() {
          setLayout(new GridLayout(0, 3));
          
          nameLabel = new JLabel("Loading...");

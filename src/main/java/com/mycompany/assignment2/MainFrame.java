@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         homePanel = new HomePanel();
-        productInfoPanel = new ProductInfoPanel(this);
+        productInfoPanel = new ProductInfoPanel();
         browsePanel = new BrowsePanel(productInfoPanel);
         cartPanel = new CartPanel();
         checkoutPanel = new CheckoutPanel();

@@ -75,5 +75,6 @@ public class MasterController {
                 break;                
         }
         frame.setActivePanel(panelName);
+        
     }
 }
