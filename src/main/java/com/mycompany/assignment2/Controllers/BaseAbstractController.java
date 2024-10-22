@@ -9,15 +9,16 @@ import Database.DatabaseManager;
 /**
  *
  * @author flynn
- * @param <E>
  */
-public class BaseController<E> {
+public abstract class BaseAbstractController<E> {
     protected MasterController master;
     protected DatabaseManager model = DatabaseManager.getInstance();
     protected E view;
     
-    public BaseController(MasterController master, E view) {
+    public BaseAbstractController(MasterController master, E view) {
         this.master = master;
         this.view = view;
     }
+    
+    public abstract void refreshPanel();
 }

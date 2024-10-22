@@ -14,13 +14,14 @@ import java.util.HashMap;
  *
  * @author flynn
  */
-public class PurchasesController extends BaseController<PurchasesPanel> {
+public class PurchasesController extends BaseAbstractController<PurchasesPanel> {
     
     public PurchasesController(MasterController master, PurchasesPanel view) {
         super(master, view);
     }
     
-    public void refreshPurchasesPanel() {
+    @Override
+    public void refreshPanel() {
 
         HashMap<Integer, Integer> map = model.getPurchases();
         HashMap<Product, Integer> purchases = new HashMap();

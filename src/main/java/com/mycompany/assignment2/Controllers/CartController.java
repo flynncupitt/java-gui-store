@@ -4,7 +4,7 @@
  */
 package com.mycompany.assignment2.Controllers;
 
-import com.mycompany.assignment2.DatabaseManager;
+import Database.DatabaseManager;
 import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.CartPanel;
@@ -18,17 +18,18 @@ import javax.swing.JButton;
  *
  * @author flynn
  */
-public class CartController extends BaseController<CartPanel> {
+public class CartController extends BaseAbstractController<CartPanel> {
     
     public CartController(MasterController master, CartPanel view) {
         super(master, view);
     }
     
-    public void refreshCartPanel() {
+    @Override
+    public void refreshPanel() {
         double cartTotal = 0.0;
         ArrayList<CartItem> cartItems = model.getCart();
-        
-        for(CartItem item : cartItems) {
+
+        for (CartItem item : cartItems) {
             cartTotal += (item.getProduct().getPrice() * item.getQuantity());
         }
 
@@ -42,25 +43,23 @@ public class CartController extends BaseController<CartPanel> {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     model.removeFromCart(productId);
-                    refreshCartPanel();
+                    refreshPanel();
                 }
             });
             index++;
         }
-        
+
         view.getBackButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 master.showPanel("Home");
             }
-            });
+        });
         view.getQuitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 master.globalQuit();
             }
-            });
+        });
     }
-    
-            
 }

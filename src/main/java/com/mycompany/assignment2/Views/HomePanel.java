@@ -8,6 +8,8 @@ import com.mycompany.assignment2.MainFrame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +26,7 @@ public class HomePanel extends JPanel {
     JButton checkoutButton;
     JButton purchasesButton;
     JButton quitButton;
+    Map<String, JButton> buttons = new HashMap();
     
     public HomePanel() {
          setLayout(new GridLayout(0, 1, 10, 10));
@@ -43,6 +46,13 @@ public class HomePanel extends JPanel {
         add(purchasesButton);
         add(quitButton);
         
+        buttons.put("Browse.Phones", browsePhonesButton);
+        buttons.put("Browse.Laptops", browseLaptopsButton);
+        buttons.put("Cart", viewCartButton);
+        buttons.put("Checkout", checkoutButton);
+        buttons.put("Purchases", purchasesButton);
+        buttons.put("Quit", quitButton);
+        
         
     }
     
@@ -55,23 +65,7 @@ public class HomePanel extends JPanel {
     }
     
     public JButton getButton(String name) {
-        switch(name) {
-            case "Browse.Phones":
-                return browsePhonesButton;
-            case "Browse.Laptops":
-                return browseLaptopsButton;
-            case "Cart":
-                return viewCartButton;
-            case "Checkout":
-                return checkoutButton;
-            case "Purchases":
-                return purchasesButton;
-            case "Quit":
-                return quitButton;
-            default:
-                System.out.println("Error: Couldn't find specified home panel button");
-                return null;
-        }
+        return buttons.get(name);
     }
     
 }

@@ -16,40 +16,43 @@ import javax.swing.JButton;
  *
  * @author flynn
  */
-public class BrowseController extends BaseController<BrowsePanel>  {
-    
+public class BrowseController extends BaseAbstractController<BrowsePanel> {
+    ArrayList<Product> currentProducts;
     public BrowseController(MasterController master, BrowsePanel view) {
         super(master, view);
     }
     
-    public void refreshBrowsePanel(ArrayList<Product> products) {
+    public void setBrowseProducts(ArrayList<Product> products) {
         view.setProducts(products);
-        
+        currentProducts = products;
+    }
+
+    @Override
+    public void refreshPanel() {
         ArrayList<JButton> buttons = view.getProductButtons();
         for (int i = 0; i < buttons.size(); i++) {
             final int currentButtonIndex = i;
             buttons.get(i).addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    master.updatePip(products.get(currentButtonIndex));
+                    master.updatePip(currentProducts.get(currentButtonIndex));
                     master.showPanel("ProductInfo");
                 }
             });
         }
-        
-         view.getBackButton().addActionListener(new ActionListener() {
+
+        view.getBackButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 master.showPanel("Home");
             }
         });
-         
-         view.getQuitButton().addActionListener(new ActionListener() {
+
+        view.getQuitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 master.globalQuit();
             }
         });
     }
-    
 }

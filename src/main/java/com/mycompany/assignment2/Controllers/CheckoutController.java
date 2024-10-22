@@ -17,14 +17,14 @@ import javax.swing.JButton;
  *
  * @author flynn
  */
-public class CheckoutController extends BaseController<CheckoutPanel> {
+public class CheckoutController extends BaseAbstractController<CheckoutPanel> {
 
     public CheckoutController(MasterController master, CheckoutPanel view) {
         super(master, view);
     }
 
-    public void refreshCheckoutPanel() {
-
+    @Override
+    public void refreshPanel() {
         double cartTotal = 0.0;
         ArrayList<CartItem> cart = model.getCart();
 
@@ -40,7 +40,7 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
                 master.showPanel("Home");
             }
         });
-        
+
         view.getQuitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,7 +57,5 @@ public class CheckoutController extends BaseController<CheckoutPanel> {
                 }
             });
         }
-
     }
-
 }

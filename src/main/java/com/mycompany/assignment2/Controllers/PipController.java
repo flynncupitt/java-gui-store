@@ -22,6 +22,7 @@ public class PipController extends BaseController<ProductInfoPanel> {
     
     public void setProductInfo(Product p) {
         int productId = p.getSku();
+        System.out.println("set info for: " + productId);
         String nameInfo = "";
         if(p.getSku() < 200) {
             PhoneProduct pp = (PhoneProduct) p;
@@ -31,7 +32,11 @@ public class PipController extends BaseController<ProductInfoPanel> {
             nameInfo =  lp.getName() + ", " + lp.getScreenSize() + " inch";
         }
         view.setProductInfo(productId, nameInfo, p.getPrice());
-        view.getCartButton().addActionListener(e -> model.addToCart(productId));
+//        view.getCartButton().addActionListener(e -> model.addToCart(productId));
+        view.getCartButton().addActionListener(e -> {
+            model.addToCart(productId);
+            System.out.println("PIP button pressed for: " + productId);
+        });
         view.getQuitButton().addActionListener(e -> master.globalQuit());
     }
 }

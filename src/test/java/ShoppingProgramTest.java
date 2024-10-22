@@ -1,15 +1,13 @@
 
 import com.mycompany.assignment2.Controllers.BrowseController;
-import com.mycompany.assignment2.Controllers.LoginController;
 import com.mycompany.assignment2.Controllers.MasterController;
-import com.mycompany.assignment2.DatabaseManager;
+import Database.DatabaseManager;
 import com.mycompany.assignment2.MainFrame;
 import com.mycompany.assignment2.Product.CartItem;
 import com.mycompany.assignment2.Product.PhoneProduct;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.BrowsePanel;
 import com.mycompany.assignment2.Views.HomePanel;
-import com.mycompany.assignment2.Views.LoginPanel;
 import com.mycompany.assignment2.Views.ProductInfoPanel;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
@@ -101,7 +99,8 @@ public class ShoppingProgramTest {
         prodsTest.add(new PhoneProduct(111, "Test Phone Plus", 799.99, "black"));
         prodsTest.add(new PhoneProduct(112, "Test Phone Max", 1099.29, "red"));
         
-        controller.refreshBrowsePanel(prodsTest);
+        controller.setBrowseProducts(prodsTest);
+        controller.refreshPanel();
         assertEquals(3, view.getProductButtons().size());
     }
     
@@ -112,7 +111,7 @@ public class ShoppingProgramTest {
         //Add to cart
         model.addToCart(201);
         
-        //Simulator switching acocunt to another user
+        //Simulate changing acocunt to another user
         model.userLoginSignup("user200");
         //Check cart updated
         assertEquals(0, model.getCart().size());

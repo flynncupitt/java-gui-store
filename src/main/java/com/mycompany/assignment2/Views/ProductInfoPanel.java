@@ -4,7 +4,7 @@
  */
 package com.mycompany.assignment2.Views;
 
-import com.mycompany.assignment2.DatabaseManager;
+import Database.DatabaseManager;
 import com.mycompany.assignment2.Product.LaptopProduct;
 import com.mycompany.assignment2.MainFrame;
 import com.mycompany.assignment2.Product.PhoneProduct;
