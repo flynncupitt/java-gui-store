@@ -19,13 +19,10 @@ public class LoginController extends BaseController<LoginPanel> {
         
             view.getQuitButton().addActionListener(e -> master.globalQuit());                    
             
-            view.getSubmitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            view.getSubmitButton().addActionListener((ActionEvent e) -> {
                 model.userLoginSignup(view.getUsernameText());
                 master.setActiveUserGreeting();
                 master.showPanel("Home");
-            }
         });
 
     }

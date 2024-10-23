@@ -5,13 +5,9 @@
 package com.mycompany.assignment2.Controllers;
 
 import com.mycompany.assignment2.Product.CartItem;
-import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.CheckoutPanel;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JButton;
 
 /**
  *
@@ -34,27 +30,18 @@ public class CheckoutController extends BaseAbstractController<CheckoutPanel> {
 
         view.setCheckoutData(cart, cartTotal);
 
-        view.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.showPanel("Home");
-            }
+        view.getBackButton().addActionListener((ActionEvent e) -> {
+            master.showPanel("Home");
         });
 
-        view.getQuitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.globalQuit();
-            }
+        view.getQuitButton().addActionListener((ActionEvent e) -> {
+            master.globalQuit();
         });
         if (!cart.isEmpty()) {
-            view.getCheckoutButton().addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    model.savePurchases();
-                    model.clearCart();
-                    master.globalQuit();
-                }
+            view.getCheckoutButton().addActionListener((ActionEvent e) -> {
+                model.savePurchases();
+                model.clearCart();
+                master.globalQuit();
             });
         }
     }

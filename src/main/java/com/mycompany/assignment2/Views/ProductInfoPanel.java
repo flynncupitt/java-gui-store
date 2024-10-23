@@ -4,14 +4,7 @@
  */
 package com.mycompany.assignment2.Views;
 
-import Database.DatabaseManager;
-import com.mycompany.assignment2.Product.LaptopProduct;
-import com.mycompany.assignment2.MainFrame;
-import com.mycompany.assignment2.Product.PhoneProduct;
-import com.mycompany.assignment2.Product.Product;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,13 +13,9 @@ import javax.swing.JPanel;
  *
  * @author flynn
  */
-public class ProductInfoPanel extends JPanel {
-    private DatabaseManager dbManager = DatabaseManager.getInstance();
-    private String productType;
-    private int productId;
-    
-    private JLabel nameLabel;
-     private JLabel priceLabel;
+public class ProductInfoPanel extends JPanel {    
+    private final JLabel nameLabel;
+     private final JLabel priceLabel;
      JButton backButton;
      JButton cartButton;
      JButton quitButton;
@@ -59,7 +48,6 @@ public class ProductInfoPanel extends JPanel {
     }
     
     public void setProductInfo(int id, String name, double price) {
-        productId = id;
         nameLabel.setText(name);
         priceLabel.setText(String.format("$%,.2f", price));
     }

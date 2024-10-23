@@ -23,17 +23,17 @@ import javax.swing.*;
  */
 public class MainFrame extends JFrame {
 
-    private CardLayout cardLayout;
-    private JPanel mainPanel;
-    private DatabaseManager dbManager = DatabaseManager.getInstance();
-    private BrowsePanel browsePanel;
-    private CartPanel cartPanel;
-    private CheckoutPanel checkoutPanel;
-    private PurchasesPanel purchasesPanel;
-    private HomePanel homePanel;
-    private ProductInfoPanel productInfoPanel;
-    private LoginPanel loginPanel;
-    private Map<String, JPanel> panels = new HashMap();
+    private final CardLayout cardLayout;
+    private final JPanel mainPanel;
+    private final DatabaseManager dbManager = DatabaseManager.getInstance();
+    private final BrowsePanel browsePanel;
+    private final  CartPanel cartPanel;
+    private final  CheckoutPanel checkoutPanel;
+    private final  PurchasesPanel purchasesPanel;
+    private final  HomePanel homePanel;
+    private final  ProductInfoPanel productInfoPanel;
+    private final  LoginPanel loginPanel;
+    private final  Map<String, JPanel> panels = new HashMap();
 
     public MainFrame() {
         setTitle("Shopping System");

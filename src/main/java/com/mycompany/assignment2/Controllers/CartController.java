@@ -4,14 +4,10 @@
  */
 package com.mycompany.assignment2.Controllers;
 
-import Database.DatabaseManager;
 import com.mycompany.assignment2.Product.CartItem;
-import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.CartPanel;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JButton;
 
 /**
@@ -39,27 +35,18 @@ public class CartController extends BaseAbstractController<CartPanel> {
         int index = 0;
         for (CartItem item : cartItems) {
             final int productId = item.getProduct().getSku();
-            buttons.get(index).addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    model.removeFromCart(productId);
-                    refreshPanel();
-                }
+            buttons.get(index).addActionListener((ActionEvent e) -> {
+                model.removeFromCart(productId);
+                refreshPanel();
             });
             index++;
         }
 
-        view.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.showPanel("Home");
-            }
+        view.getBackButton().addActionListener((ActionEvent e) -> {
+            master.showPanel("Home");
         });
-        view.getQuitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.globalQuit();
-            }
+        view.getQuitButton().addActionListener((ActionEvent e) -> {
+            master.globalQuit();
         });
     }
 }

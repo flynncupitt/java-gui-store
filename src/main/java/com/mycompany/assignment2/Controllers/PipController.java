@@ -8,6 +8,7 @@ import com.mycompany.assignment2.Product.LaptopProduct;
 import com.mycompany.assignment2.Product.PhoneProduct;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.ProductInfoPanel;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -32,11 +33,13 @@ public class PipController extends BaseController<ProductInfoPanel> {
             nameInfo =  lp.getName() + ", " + lp.getScreenSize() + " inch";
         }
         view.setProductInfo(productId, nameInfo, p.getPrice());
-//        view.getCartButton().addActionListener(e -> model.addToCart(productId));
-        view.getCartButton().addActionListener(e -> {
-            model.addToCart(productId);
-            System.out.println("PIP button pressed for: " + productId);
-        });
+        
+        //Need to remove previous add to cart actions to avoid double triggers
+        for (ActionListener al : view.getCartButton().getActionListeners()) {
+            view.getCartButton().removeActionListener(al);
+            System.out.println("removed an action listener");
+        }
+        view.getCartButton().addActionListener(e -> model.addToCart(productId));
         view.getQuitButton().addActionListener(e -> master.globalQuit());
     }
 }

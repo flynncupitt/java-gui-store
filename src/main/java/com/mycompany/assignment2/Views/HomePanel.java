@@ -4,10 +4,7 @@
  */
 package com.mycompany.assignment2.Views;
 
-import com.mycompany.assignment2.MainFrame;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;

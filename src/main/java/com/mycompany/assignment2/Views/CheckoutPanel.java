@@ -7,10 +7,7 @@ package com.mycompany.assignment2.Views;
 import Database.DatabaseManager;
 import com.mycompany.assignment2.MainFrame;
 import com.mycompany.assignment2.Product.CartItem;
-import com.mycompany.assignment2.Product.Product;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
@@ -22,16 +19,11 @@ import javax.swing.JPanel;
  * @author flynn
  */
 public class CheckoutPanel extends JPanel {
-    HashMap<Integer,Integer> map = new HashMap();
-    private DatabaseManager dbManager = DatabaseManager.getInstance();
-    private MainFrame mainFrame;
-    private Double cartTotal = 0.0;
     private JButton backButton;
     private JButton checkoutButton;
     private JButton quitButton;
     
     public CheckoutPanel() {
-//        refreshCheckout();
     }
     
     public JButton getBackButton() {

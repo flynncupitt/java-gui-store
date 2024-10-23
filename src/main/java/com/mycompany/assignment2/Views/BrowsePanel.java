@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class BrowsePanel extends JPanel {
     private ProductInfoPanel pip;
-    private ArrayList<JButton> productButtons = new ArrayList();
+    private final ArrayList<JButton> productButtons = new ArrayList();
     JLabel title = new JLabel("Browsing");
     JButton backButton;
     JButton quitButton;

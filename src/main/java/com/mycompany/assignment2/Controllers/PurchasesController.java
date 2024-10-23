@@ -6,8 +6,6 @@ package com.mycompany.assignment2.Controllers;
 
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.PurchasesPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 /**

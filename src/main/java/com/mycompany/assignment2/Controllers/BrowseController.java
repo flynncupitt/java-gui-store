@@ -7,7 +7,6 @@ package com.mycompany.assignment2.Controllers;
 import com.mycompany.assignment2.Product.Product;
 import com.mycompany.assignment2.Views.BrowsePanel;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 
@@ -32,27 +31,18 @@ public class BrowseController extends BaseAbstractController<BrowsePanel> {
         ArrayList<JButton> buttons = view.getProductButtons();
         for (int i = 0; i < buttons.size(); i++) {
             final int currentButtonIndex = i;
-            buttons.get(i).addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    master.updatePip(currentProducts.get(currentButtonIndex));
-                    master.showPanel("ProductInfo");
-                }
+            buttons.get(i).addActionListener((ActionEvent e) -> {
+                master.updatePip(currentProducts.get(currentButtonIndex));
+                master.showPanel("ProductInfo");
             });
         }
 
-        view.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.showPanel("Home");
-            }
+        view.getBackButton().addActionListener((ActionEvent e) -> {
+            master.showPanel("Home");
         });
 
-        view.getQuitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                master.globalQuit();
-            }
+        view.getQuitButton().addActionListener((ActionEvent e) -> {
+            master.globalQuit();
         });
     }
 }

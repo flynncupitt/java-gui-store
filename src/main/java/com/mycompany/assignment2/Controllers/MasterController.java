@@ -26,14 +26,14 @@ public class MasterController {
     DatabaseManager model = DatabaseManager.getInstance();
     
     private CartController cartController;
-    private HomeController homeController;
+    private final HomeController homeController;
     private CheckoutController checkoutController;
     private BrowseController browseController;
     private PurchasesController purchasesController;
-    private PipController pipController;
-    private LoginController loginController;
+    private final PipController pipController;
+    private final LoginController loginController;
     
-    private Map<String, Runnable> panelActions = new HashMap();
+    private final Map<String, Runnable> panelActions = new HashMap();
     
     public MasterController(MainFrame frame) {
         this.frame = frame;
